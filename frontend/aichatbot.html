@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>AI Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #343a40;
+            padding: 15px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #f8f9fa;
+            font-size: 1.1rem;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #17a2b8;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 20px 60px;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+                url('https://source.unsplash.com/1200x600/?ai,technology') no-repeat center center/cover;
+            color: white;
+            font-size: 28px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Chat Container */
+        .chat-container {
+            width: 50%;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .chat-container:hover {
+            transform: scale(1.02);
+        }
+
+        /* Chat Box */
+        #chat-box {
+            height: 280px;
+            overflow-y: auto;
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #chat-box p {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        #chat-box p strong {
+            font-weight: bold;
+        }
+
+        #chat-box p:nth-child(odd) {
+            background: #e1f5fe;
+            color: #333;
+        }
+
+        #chat-box p:nth-child(even) {
+            background: #d1c4e9;
+            color: #333;
+        }
+
+        /* Input and Button */
+        .input-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus {
+            border-color: #008CBA;
+            box-shadow: 0px 0px 10px rgba(0, 140, 186, 0.2);
+        }
+
+        /* Buttons */
+        button {
+            background: linear-gradient(45deg, #008CBA, #005f73);
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #005f73, #008CBA);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer a {
+            color: lightblue;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .footer a:hover {
+            color: #00d4ff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .chat-container {
+                width: 80%;
+            }
+
+            .hero {
+                font-size: 22px;
+                padding: 80px 20px;
+            }
+
+            input[type="text"] {
+                width: 65%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Finance AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+
+                    <!-- <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li> -->
+                    <!-- <li class="nav-item"><a class="nav-link" href="#features">Features</a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="hero">
+        <h1>Welcome to AI Finance Chatbot</h1>
+        <p>Your smart assistant powered by AI</p>
+    </div>
+
+    <div class="chat-container">
+        <h2>Chat with AI</h2>
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 AI Chatbot | Follow us on
+            <a href="#">Twitter</a>,
+            <a href="#">Facebook</a>
+        </p>
+    </div>
+
+
+    <script>
+        const responses = {
+            // 🔹 Greetings
+            "hello": "Hello! How can I assist you today?",
+            "hi": "Hi there! What finance topic would you like to discuss?",
+            "hey": "Hey! Need any financial advice?",
+            "good morning": "Good morning! Hope you have a productive day ahead.",
+            "good afternoon": "Good afternoon! What financial query can I help you with?",
+            "good evening": "Good evening! How can I assist you today?",
+            "good night": "Good night! Sleep well and manage your finances wisely!",
+            "how are you": "I'm just a bot, but I'm here to help! How about you?",
+            "what's up": "Not much, just here to answer your finance-related questions!",
+            "how's it going": "Going great! What’s on your mind?",
+
+            // 🔹 Basic Conversational Responses
+            "yes": "Great! Let's move forward.",
+            "no": "Alright! Let me know if you need help with anything else.",
+            "maybe": "Take your time! Making financial decisions requires thought.",
+            "thank you": "You're welcome! Happy to help. 😊",
+            "thanks": "No problem! If you have more questions, feel free to ask.",
+            "bye": "Goodbye! Have a wonderful day!",
+            "see you": "See you soon! Stay financially smart!",
+            "take care": "You too! Keep making wise financial choices.",
+
+
+            // 🔹 Courtesy & Thanks
+            "thank you": "You're welcome! Let me know if you have more finance questions.",
+            "thanks": "No problem! I’m always here to help.",
+            "bye": "Goodbye! Have a great day and make wise financial choices!",
+            "see you": "See you later! Stay financially smart!",
+            // 🔹 Credit & Scores
+            "credit score": "Your credit score is based on payment history, credit utilization, length of credit history, and more.",
+            "improve credit score": "To improve your credit score, pay bills on time, reduce credit utilization, and avoid too many hard inquiries.",
+            "credit history": "Credit history includes past loans, credit card usage, and payment habits, affecting your score.",
+            "credit report": "A credit report is a detailed record of your credit history used by lenders to assess your creditworthiness.",
+            "credit utilization": "Credit utilization is the percentage of your available credit that you are using. Keeping it under 30% is recommended.",
+
+            // 🔹 Loans & Borrowing
+            "loan eligibility": "Loan eligibility depends on factors like income, credit score, existing debts, and financial history.",
+            "loan default": "A loan default happens when a borrower fails to meet the repayment terms, leading to legal consequences.",
+            "secured vs unsecured loans": "Secured loans require collateral (e.g., mortgage), while unsecured loans (e.g., personal loans) don’t.",
+            "apr vs interest rate": "APR includes interest rate + fees, giving a clearer cost of borrowing.",
+            "debt consolidation": "Debt consolidation merges multiple debts into a single loan, often with lower interest rates.",
+
+            // 🔹 Fraud & Security
+            "credit fraud": "Credit fraud occurs when someone uses your financial information without permission. Monitor your statements regularly.",
+            "fraud detection": "AI-driven fraud detection identifies unusual spending patterns and alerts users in real time.",
+            "identity theft": "Identity theft occurs when someone steals your personal data for fraudulent activities.",
+            "blockchain credit verification": "Blockchain ensures secure, immutable records for credit verification using smart contracts.",
+
+            // 🔹 Investments & Savings
+            "investment strategy": "A good investment strategy depends on risk tolerance, financial goals, and market trends.",
+            "stocks vs bonds": "Stocks represent ownership in a company, while bonds are fixed-income loans to corporations or governments.",
+            "mutual funds vs etfs": "Mutual funds are actively managed, while ETFs are traded like stocks with lower fees.",
+            "robo-advisors": "Robo-advisors use AI to manage and optimize your investments automatically.",
+            "alternative credit scoring": "Alternative credit scoring uses rental payments, utility bills, and social media activity to assess creditworthiness.",
+
+            // 🔹 Budgeting & Finance Management
+            "financial literacy": "Financial literacy helps individuals manage money effectively through budgeting, saving, and investing.",
+            "emergency fund": "An emergency fund covers unexpected expenses like medical bills or job loss.",
+            "zero-based budgeting": "Zero-based budgeting assigns every dollar to a specific expense, savings, or investment.",
+            "compound interest": "Compound interest helps your money grow exponentially over time when invested wisely.",
+            "inflation impact": "Inflation reduces purchasing power over time, making it crucial to invest in assets that outpace it.",
+
+            // 🔹 AI in Finance
+            "predictive analytics": "Predictive analytics assess spending patterns, credit risks, and financial health trends.",
+            "ai credit scoring": "AI-based credit scoring considers non-traditional data like payment patterns and digital footprints.",
+            "automated trading": "Automated trading uses AI to buy and sell assets based on market trends.",
+            "fintech": "FinTech combines finance and technology to offer digital banking, payments, and lending services.",
+
+            // 🔹 Banking & Digital Payments
+            "upi vs credit card": "UPI is a real-time bank transfer method, while credit cards offer credit-based purchases with rewards.",
+            "digital banking": "Digital banking allows financial transactions via mobile apps and online platforms.",
+            "mobile payments": "Mobile payments enable transactions via apps like Google Pay, Apple Pay, and PayPal.",
+            "payment fraud": "Payment fraud involves unauthorized transactions using stolen payment details.",
+
+            // 🔹 Risk & Alerts
+            "risk alerts": "Risk alerts notify users of changes in their credit profile or suspicious activities.",
+            "financial risk management": "Risk management helps protect assets from market fluctuations and economic downturns.",
+            "market volatility": "Market volatility refers to unpredictable price swings in stocks, bonds, or commodities.",
+            "liquidity risk": "Liquidity risk is the difficulty of selling an asset quickly without losing value.",
+
+            // 🔹 Default Response
+            "default": "I'm not sure about that, but finance is important! Try asking about credit scores, investments, or digital banking."
+        };
+
+        const financeKeywords = [
+            "credit", "loan", "finance", "fraud", "investment", "savings", "bank", "money", "financial",
+            "score", "debt", "payment", "risk", "budget", "interest", "inflation", "stock", "market",
+            "trading", "crypto", "blockchain", "digital banking", "upi", "mutual funds", "funds", "tax", "economy"
+        ];
+
+        function findBestMatch(userInput) {
+            userInput = userInput.toLowerCase();
+
+            // 🔹 Check for Exact Match
+            if (responses[userInput]) {
+                return responses[userInput];
+            }
+
+            // 🔹 Check for Partial Match
+            for (let key in responses) {
+                if (userInput.includes(key)) {
+                    return responses[key];
+                }
+            }
+
+            // 🔹 Check if Input is Finance-Related
+            for (let keyword of financeKeywords) {
+                if (userInput.includes(keyword)) {
+                    return `It looks like you're asking about finance. For more details, visit: <a href="https://www.google.com/search?q=${encodeURIComponent(userInput)}" target="_blank">Google Finance Search</a>`;
+                }
+            }
+
+            // 🔹 Default Response
+            return responses["default"];
+        }
+
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value.trim();
+            if (userInput === "") return;
+
+            let chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += <p><strong>You:</strong> ${userInput}</p>;
+
+            let botResponse = findBestMatch(userInput);
+            chatBox.innerHTML += <p><strong>Bot:</strong> ${botResponse}</p>;
+
+            document.getElementById("user-input").value = ""; // Clear input field
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>

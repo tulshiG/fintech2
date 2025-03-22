@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+        <input type="text" id="loginPanNo" placeholder="Enter PAN Number">
+        <input type="password" id="loginPassword" placeholder="Enter Password">
+        <button onclick="loginUser()">Login</button>
+
+        <p id="responseMessage"></p>
+
+        <div id="creditDetails" style="display: none;">
+            <h2>Credit Details</h2>
+            <p><strong>Credit Scores:</strong> <pre id="creditScores"></pre></p>
+            <p><strong>Unified Score:</strong> <span id="unifiedScore"></span></p>
+            <p><strong>Risk Assessment:</strong> <span id="riskAssessment"></span></p>
+        </div>
+    </div>
+
+    <script src="script1.js"></script>
+</body>
+
+</html>

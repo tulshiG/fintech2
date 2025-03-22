@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score Dashboard</title>
+    <link rel="stylesheet" href="creditstyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles for Responsiveness */
+        .score-container {
+            max-width: 350px;
+            margin: auto;
+        }
+
+        .advantage-box {
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .score-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .score-range {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .steps-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .steps-list li {
+            padding: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                text-align: center;
+            }
+
+            .score-bar {
+                flex-direction: column;
+            }
+        }
+
+        .score-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .score-range {
+            width: 80%;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Color codes for score ranges */
+        .green {
+            background: #28a745;
+        }
+
+        .yellow {
+            background: #ffc107;
+        }
+
+        .orange {
+            background: #fd7e14;
+        }
+
+        .red {
+            background: #dc3545;
+        }
+
+        .dark-red {
+            background: #6c757d;
+        }
+        
+ /* Navbar */
+ .navbar {
+            background: #343a40;
+            padding: 5px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #f8f9fa;
+            font-size: 1.1rem;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #17a2b8;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="height: 70px;">
+        <div class="container">
+            <a class="navbar-brand" href="#">Finance AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Score Simulator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <br><br><br>
+    <!-- Check Your Score Link -->
+    <div class="text-center my-4" style="margin-top: 100px;">
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authModal">Check Your Score</a>
+    </div>
+
+   <!-- Login/Signup Modal -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="authModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Login Form -->
+                <form id="loginForm" onsubmit="return validateLogin()">
+                    <div class="mb-3">
+                        <label for="loginName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="loginName" required>
+                        <small id="loginNameError" class="text-danger"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                        <small id="loginPasswordError" class="text-danger"></small>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+
+                <!-- Signup Form (Initially Hidden) -->
+                <form id="signupForm" class="d-none" onsubmit="return validateSignup()">
+                    <div class="mb-3">
+                        <label for="signupName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="signupName" required>
+                        <small id="signupNameError" class="text-danger"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupPan" class="form-label">PAN Card Number</label>
+                        <input type="text" class="form-control" id="signupPan" required>
+                        <small id="signupPanError" class="text-danger"></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="signupPassword" required>
+                        <small id="signupPasswordError" class="text-danger"></small>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Sign Up</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" onclick="toggleAuthForms()">Switch to Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleAuthForms() {
+        document.getElementById("loginForm").classList.toggle("d-none");
+        document.getElementById("signupForm").classList.toggle("d-none");
+        document.getElementById("authModalLabel").innerText =
+            document.getElementById("loginForm").classList.contains("d-none") ? "Sign Up" : "Login";
+    }
+
+    function validateUsername(name) {
+        const nameRegex = /^[a-zA-Z\s]{3,}$/;
+        return nameRegex.test(name);
+    }
+
+    function validatePAN(pan) {
+        const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+        return panRegex.test(pan);
+    }
+
+    function validatePassword(password) {
+        const passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+        return passwordRegex.test(password);
+    }
+
+    function validateLogin() {
+        let loginName = document.getElementById("loginName").value.trim();
+        let loginPassword = document.getElementById("loginPassword").value.trim();
+        let isValid = true;
+
+        if (!validateUsername(loginName)) {
+            document.getElementById("loginNameError").innerText = "Invalid name. Use only letters and spaces (min 3 characters).";
+            isValid = false;
+        } else {
+            document.getElementById("loginNameError").innerText = "";
+        }
+
+        if (!validatePassword(loginPassword)) {
+            document.getElementById("loginPasswordError").innerText =
+                "Password must be 8+ characters, including 1 uppercase, 1 lowercase, 1 number, and 1 special character.";
+            isValid = false;
+        } else {
+            document.getElementById("loginPasswordError").innerText = "";
+        }
+
+        return isValid;
+    }
+
+    function validateSignup() {
+        let signupName = document.getElementById("signupName").value.trim();
+        let signupPan = document.getElementById("signupPan").value.trim();
+        let signupPassword = document.getElementById("signupPassword").value.trim();
+        let isValid = true;
+
+        if (!validateUsername(signupName)) {
+            document.getElementById("signupNameError").innerText = "Invalid name. Use only letters and spaces (min 3 characters).";
+            isValid = false;
+        } else {
+            document.getElementById("signupNameError").innerText = "";
+        }
+
+        if (!validatePAN(signupPan)) {
+            document.getElementById("signupPanError").innerText = "Invalid PAN. Format: 5 letters + 4 digits + 1 letter (e.g., ABCDE1234F).";
+            isValid = false;
+        } else {
+            document.getElementById("signupPanError").innerText = "";
+        }
+
+        if (!validatePassword(signupPassword)) {
+            document.getElementById("signupPasswordError").innerText =
+                "Password must be 8+ characters, including 1 uppercase, 1 lowercase, 1 number, and 1 special character.";
+            isValid = false;
+        } else {
+            document.getElementById("signupPasswordError").innerText = "";
+        }
+
+        return isValid;
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row align-items-center">
+            <!-- Credit Score Meter -->
+            <div class="col-lg-6 col-md-12 text-center">
+                <h3 class="section-title">Your CIBIL Score</h3>
+                <div class="score-container">
+                    <canvas id="creditScoreChart" width="200" height="200"></canvas>
+                    <p class="score-text">As of 03/2025</p>
+                    
+                </div>
+            </div>
+
+            <!-- Score Breakdown -->
+            <div class="col-lg-6 col-md-12">
+                <h3 class="section-title">Where You Stand</h3>
+                <div class="score-bar">
+                    <div class="score-range green">778-900</div>
+                    <div class="score-range yellow">765-777</div>
+                    <div class="score-range orange">748-764</div>
+                    <div class="score-range red">723-747</div>
+                    <div class="score-range dark-red">300-722</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Steps to Maintain a Good Credit Score -->
+        <div class="mt-5">
+            <h3 class="section-title">How to Maintain a Good Credit Score?</h3>
+            <ul class="steps-list">
+                <li>✔ Pay your bills on time, including EMIs and credit card payments.</li>
+                <li>✔ Keep your credit utilization low (ideally below 30%).</li>
+                <li>✔ Avoid applying for too many loans or credit cards at once.</li>
+                <li>✔ Maintain a long credit history by keeping old accounts active.</li>
+                <li>✔ Regularly check your credit report for errors and disputes.</li>
+            </ul>
+        </div>
+
+        <!-- Advantages of a High Credit Score -->
+        <div class="mt-5">
+            <h3 class="section-title">Advantages of a High Credit Score</h3>
+            <div class="row text-center">
+                <div class="col-md-4 col-sm-6 advantage-box">🏡 Easier Loan Approvals</div>
+                <div class="col-md-4 col-sm-6 advantage-box">📉 Lower Interest Rates</div>
+                <div class="col-md-4 col-sm-6 advantage-box">💳 Higher Credit Limits</div>
+                <div class="col-md-4 col-sm-6 advantage-box">🔄 Better Credit Card Offers</div>
+                <div class="col-md-4 col-sm-6 advantage-box">📑 Faster Loan Processing</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5 text-center">
+        <p>Contact Us: support@cibil.com | 📞 1800-123-4567</p>
+    </footer>
+
+    <script src="creditscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

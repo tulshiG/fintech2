@@ -1,0 +1,166 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Section Titles */
+.section-title {
+    font-weight: 600;
+    color: #2d6a4f;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 20px;
+}
+
+/* Navbar */
+.navbar {
+    background: #343a40;
+    padding: 5px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-nav .nav-link {
+    color: #f8f9fa;
+    font-size: 1.1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #17a2b8;
+}
+
+/* Main Content Section */
+.container {
+    padding: 40px 0;
+}
+
+/* Score Breakdown */
+.score-bar {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.score-range {
+    padding: 12px;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.green { background: #2ecc71; }
+.yellow { background: #f1c40f; }
+.orange { background: #e67e22; }
+.red { background: #e74c3c; }
+.dark-red { background: #c0392b; }
+
+/* Credit Score Factors */
+.factor-box {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.factor-box:hover {
+    transform: scale(1.05);
+}
+
+/* Steps List */
+.steps-list {
+    background: #eef7ff;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* Advantages Section */
+.advantage-box {
+    background: #d1ecf1;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #0077b6;
+    color: white;
+    margin-top: 40px;
+}
+
+/* Auth Forms */
+.auth-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.auth-container h4 {
+    color: #0077b6;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.modal-body form {
+    margin-bottom: 15px;
+}
+.btn-link {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #2d6a4f;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #1e5032;
+}
+
+/* Hide forms initially */
+.d-none {
+    display: none;
+}
